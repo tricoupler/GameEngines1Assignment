@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3einbk136euk"]
+
+[ext_resource type="Script" path="res://camera_3d.gd" id="1_ngurl"]
+[ext_resource type="PackedScene" uid="uid://cp313kdxdc68j" path="res://greek_statue_model.fbx" id="2_b2h6a"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -213.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StatueMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Camera3D" type="Camera3D" parent="StatueMarker" node_paths=PackedStringArray("marker")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0.3, 2)
+script = ExtResource("1_ngurl")
+marker = NodePath("..")
+
+[node name="greek_statue_model" parent="." instance=ExtResource("2_b2h6a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

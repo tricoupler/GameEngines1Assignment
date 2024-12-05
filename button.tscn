@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3bftljjllbmm"]
+
+[ext_resource type="Script" path="res://button.gd" id="1_xs5qo"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_3wdsp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_38tja"]
+
+[node name="Button" type="Area3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+script = ExtResource("1_xs5qo")
+unselected_colour = Color(0.227451, 0.2, 0.207843, 1)
+highlighted_colour = Color(0.835294, 0.87451, 0.898039, 1)
+selected_colour = Color(0.941176, 0.227451, 0.278431, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_3wdsp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_38tja")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="toggle_changed" from="." to="." method="_on_toggle_changed"]

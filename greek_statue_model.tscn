@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://xelrblkk45r4"]
+
+[ext_resource type="PackedScene" uid="uid://cp313kdxdc68j" path="res://greek_statue_model.fbx" id="1_yijex"]
+[ext_resource type="Texture2D" uid="uid://ck2gmit1py7sa" path="res://pexels-apasaric-1323712.jpg" id="2_13jmu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wnwy2"]
+albedo_color = Color(0.707967, 0.707967, 0.707967, 1)
+albedo_texture = ExtResource("2_13jmu")
+
+[node name="greek_statue_model" instance=ExtResource("1_yijex")]
+
+[node name="Mesh_0" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wnwy2")

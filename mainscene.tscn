@@ -1,0 +1,72 @@
+[gd_scene load_steps=15 format=3 uid="uid://d3einbk136euk"]
+
+[ext_resource type="Script" path="res://rotate_camera.gd" id="1_mjily"]
+[ext_resource type="PackedScene" uid="uid://cp313kdxdc68j" path="res://greek_statue_model.fbx" id="2_b2h6a"]
+[ext_resource type="Texture2D" uid="uid://dqvemspusp8fl" path="res://skybox.png" id="3_g27np"]
+[ext_resource type="PackedScene" uid="uid://d3bftljjllbmm" path="res://button.tscn" id="5_ugo3e"]
+[ext_resource type="Script" path="res://button_handler.gd" id="5_yrwmd"]
+[ext_resource type="AudioStream" uid="uid://q0nofbhqo1kf" path="res://samples/first_sample.wav" id="6_k4r37"]
+[ext_resource type="AudioStream" uid="uid://dptegnt1d45re" path="res://samples/second_sample.wav" id="7_0t6ak"]
+[ext_resource type="AudioStream" uid="uid://cfxyruipabwd" path="res://samples/third_sample.wav" id="8_fxtwe"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e8n65"]
+albedo_color = Color(0, 0.721856, 0.581934, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7nj16"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_0ya8w"]
+panorama = ExtResource("3_g27np")
+
+[sub_resource type="Sky" id="Sky_cla2j"]
+sky_material = SubResource("PanoramaSkyMaterial_0ya8w")
+
+[sub_resource type="Environment" id="Environment_wb3wc"]
+background_mode = 2
+sky = SubResource("Sky_cla2j")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_t8i58"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StatueMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+script = ExtResource("1_mjily")
+
+[node name="Camera3D" type="Camera3D" parent="StatueMarker"]
+transform = Transform3D(1, 0, 0, 0, 0.938397, 0.34556, 0, -0.34556, 0.938397, 0, 0.156525, 2.55644)
+fov = 53.0
+
+[node name="Marker3D" type="Marker3D" parent="StatueMarker/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.402366, -0.0709748, -0.884418)
+script = ExtResource("5_yrwmd")
+button_object = ExtResource("5_ugo3e")
+first_sample = ExtResource("6_k4r37")
+second_sample = ExtResource("7_0t6ak")
+third_sample = ExtResource("8_fxtwe")
+
+[node name="TimerCube" type="MeshInstance3D" parent="StatueMarker/Camera3D/Marker3D"]
+material_override = SubResource("StandardMaterial3D_e8n65")
+mesh = SubResource("BoxMesh_7nj16")
+
+[node name="greek_statue_model" parent="." instance=ExtResource("2_b2h6a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wb3wc")
+
+[node name="Pedastal" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0903046, -1.00993, -0.0440347)
+mesh = SubResource("CylinderMesh_t8i58")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7, 0)
+spot_range = 19.4568
+
+[connection signal="timeout" from="Timer" to="StatueMarker/Camera3D/Marker3D" method="_on_timer_timeout"]
