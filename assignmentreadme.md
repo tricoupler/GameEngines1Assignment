@@ -8,7 +8,7 @@ Class Group: TU857/4 Game Engines 1
 
 Video:
 
-[![YouTube]]()
+[![YouTube]](https://youtu.be/ORWI-wMAu08?feature=shared)
 
 # Description of the project
 This project is a step sequencer that allows a user to create simple tunes. There is a futuristic aesthetic. 
